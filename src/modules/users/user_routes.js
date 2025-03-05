@@ -1,18 +1,13 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 // src/routes/user_routes.ts
-import express from 'express';
-
+const express_1 = __importDefault(require("express"));
 //indica les rutes http, indicant tb a quina mena de funció s'ha de cridar (get,post...)
-import {
-    saveMethodHandler,
-    createUserHandler,
-    getAllUsersHandler,
-    getUserByIdHandler,
-    updateUserHandler,
-    deleteUserHandler
-} from '../users/user_controller.js';
-
-const router = express.Router();
-
+const user_controller_js_1 = require("../users/user_controller.js");
+const router = express_1.default.Router();
 //explicació que li estem donant al swagger perquè sigui capaç d'entendre què està passant
 /**
  * @openapi
@@ -34,8 +29,7 @@ const router = express.Router();
  *                   type: string
  *                   example: Bienvenido a la API
  */
-router.get('/main', saveMethodHandler);
-
+router.get('/main', user_controller_js_1.saveMethodHandler);
 /**
  * @openapi
  * /api/users:
@@ -59,13 +53,12 @@ router.get('/main', saveMethodHandler);
  *                 type: string
  *               password:
  *                 type: string
- * 
+ *
  *     responses:
  *       201:
  *         description: Usuario creado exitosamente
  */
-router.post('/users', createUserHandler);
-
+router.post('/users', user_controller_js_1.createUserHandler);
 /**
  * @openapi
  * /api/users:
@@ -93,8 +86,7 @@ router.post('/users', createUserHandler);
  *                  password:
  *                     type: string
  */
-router.get('/users', getAllUsersHandler);
-
+router.get('/users', user_controller_js_1.getAllUsersHandler);
 /**
  * @openapi
  * /api/users/{id}:
@@ -128,8 +120,7 @@ router.get('/users', getAllUsersHandler);
  *       404:
  *         description: Usuario no encontrado
  */
-router.get('/users/:id', getUserByIdHandler);
-
+router.get('/users/:id', user_controller_js_1.getUserByIdHandler);
 /**
  * @openapi
  * /api/users/{id}:
@@ -165,8 +156,7 @@ router.get('/users/:id', getUserByIdHandler);
  *       404:
  *         description: Usuario no encontrado
  */
-router.put('/users/:id', updateUserHandler);
-
+router.put('/users/:id', user_controller_js_1.updateUserHandler);
 /**
  * @openapi
  * /api/users/{id}:
@@ -187,6 +177,5 @@ router.put('/users/:id', updateUserHandler);
  *       404:
  *         description: Usuario no encontrado
  */
-router.delete('/users/:id', deleteUserHandler);
-
-export default router;
+router.delete('/users/:id', user_controller_js_1.deleteUserHandler);
+exports.default = router;
