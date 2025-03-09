@@ -1,7 +1,6 @@
 import express from 'express';
 
 import {
-    saveMethodHandler,
     createSubjectHandler,
     getAllSubjectsHandler,
     getSubjectByIdHandler,

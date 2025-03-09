@@ -2,7 +2,6 @@
 
 //definim funcions a nivell de base de dades 
 import Subject, { ISubject } from '../subjects/subject_models.js';
-import User from '../users/user_models.js';
 
 export const saveMethod = () => {
     return 'Hola';
@@ -37,20 +36,13 @@ export const deleteSubject = async (id: string) => {
 };
 
 export const getUsersBySubject = async (subjectId: string) => {
-    /*try {
-        const users = await User.find({ subjects: subjectId });
-        return users;
-    } catch (error) {
-        throw new Error('Error getting users by subject');
-    }*/
         try {
-            // Buscar la materia por ID y obtener los alumnos
             const subject = await Subject.findById(subjectId).populate('alumni');
             if (!subject) {
                 throw new Error('Subject not found');
             }
     
-            return subject.alumni; // Ya está populado con los usuarios
+            return subject.alumni;
         } catch (error) {
             throw new Error('Error getting users by subject');
         }

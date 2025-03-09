@@ -16,7 +16,7 @@ export const saveMethodHandler = async (req: Request, res: Response) => {
 };
 export const createSubjectHandler = async (req: Request, res: Response) => {
     try {
-        const data = await createSubject(req.body); //com que en el request ha de venir el body, s'ha de passar com a paràmetre
+        const data = await createSubject(req.body);
         res.json(data);
     } catch (error: any) {
         res.status(500).json({ message: error.message });

@@ -46,4 +46,7 @@ http://localhost:9000/api-docs
 - `@types/*`: Definicions de tipus per a biblioteques utilitzades.
 
 
+Referències:
 
+[1] Web de mongoDB https://www.mongodb.com/docs/
+[2] Copylot

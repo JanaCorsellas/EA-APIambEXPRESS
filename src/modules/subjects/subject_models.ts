@@ -1,4 +1,4 @@
-import mongoose, {Schema, Document} from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 //definir tipus de variables
 const subjectSchema = new mongoose.Schema({
