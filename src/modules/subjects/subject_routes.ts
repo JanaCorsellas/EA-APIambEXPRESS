@@ -6,7 +6,8 @@ import {
     getAllSubjectsHandler,
     getSubjectByIdHandler,
     updateSubjectHandler,
-    deleteSubjectHandler
+    deleteSubjectHandler,
+    getUsersBySubjectHandler
 } from '../subjects/subject_controller.js';
 
 const router = express.Router();
@@ -15,8 +16,8 @@ const router = express.Router();
  * @openapi
  * /api/subjects:
  *   post:
- *     summary: Crea un nuevo subject
- *     description: Añade los detalles de un nuevo subject.
+ *     summary: Crea un nou subject
+ *     description: Afegeix els detalls d'un nou subject.
  *     tags:
  *       - Subjects
  *     requestBody:
@@ -31,20 +32,21 @@ const router = express.Router();
  *               teacher:
  *                 type: string
  *               alumni:
- *                 type: Schema.Types.ObjectId
- * 
+ *                 type: array
+ *                 items: 
+ *                   type: ObjectID
  *     responses:
  *       201:
- *         description: Subject creado exitosamente
+ *         description: Subject creat exitosament
  */
 router.post('/subjects', createSubjectHandler);
 
 /**
  * @openapi
- * /api/subjets:
+ * /api/subjects:
  *   get:
- *     summary: Obtiene todos los subjects
- *     description: Retorna una lista de todos los subjects.
+ *     summary: Obté tots els subjects
+ *     description: Retorna una llista de tots els subjects.
  *     tags:
  *       - Subjects
  *     responses:
@@ -62,7 +64,9 @@ router.post('/subjects', createSubjectHandler);
  *                  teacher:
  *                    type: string
  *                  alumni:
- *                     type: Schema.Types.ObjectId
+ *                    type: array
+ *                    items: 
+ *                      type: ObjectID
  */
 router.get('/subjects', getAllSubjectsHandler);
 
@@ -70,8 +74,8 @@ router.get('/subjects', getAllSubjectsHandler);
  * @openapi
  * /api/subjects/{id}:
  *   get:
- *     summary: Obtiene un subject por ID
- *     description: Retorna los detalles de un subject específico.
+ *     summary: Obté un subject per ID
+ *     description: Retorna els detalls d'un subject específic.
  *     tags:
  *       - Subjects
  *     parameters:
@@ -93,9 +97,11 @@ router.get('/subjects', getAllSubjectsHandler);
  *                 teacher:
  *                   type: string
  *                 alumni:
- *                    type: Schema.Types.ObjectId
+ *                   type: array
+ *                   items: 
+ *                     type: ObjectID
  *       404:
- *         description: Subject no encontrado
+ *         description: Subject no trobat
  */
 router.get('/subjects/:id', getSubjectByIdHandler);
 
@@ -103,8 +109,8 @@ router.get('/subjects/:id', getSubjectByIdHandler);
  * @openapi
  * /api/subjects/{id}:
  *   put:
- *     summary: Actualiza un subject por ID
- *     description: Modifica los detalles de un subject específico.
+ *     summary: Actualitza un subject per ID
+ *     description: Modifica els detalls d'un subject específic.
  *     tags:
  *       - Subjects
  *     parameters:
@@ -125,13 +131,75 @@ router.get('/subjects/:id', getSubjectByIdHandler);
  *                 teacher:
  *                   type: string
  *                 alumni:
- *                    type: Schema.Types.ObjectId
+ *                   type: array
+ *                   items: 
+ *                     type: ObjectID
  *     responses:
  *       200:
- *         description: Subject actualizado exitosamente
+ *         description: Subject actualizat exitosament
  *       404:
- *         description: Subject no encontrado
+ *         description: Subject no trobat
  */
 router.put('/subjects/:id', updateSubjectHandler);
+
+/**
+ * @openapi
+ * /api/subjects/{id}:
+ *   delete:
+ *     summary: Elimina un subject per ID
+ *     description: Elimina un subject específic de la base de dades.
+ *     tags:
+ *       - Subjects
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Subject eliminat exitosament
+ *       404:
+ *         description: Subject no trobat
+ */
+router.delete('/subjects/:id', deleteSubjectHandler);
+
+/**
+ * @openapi
+ * /api/subjects/{id}/users:
+ *   get:
+ *     summary: Obté tots els usuaris que estan cursant una subject
+ *     description: Retorna una llista dels usuaris.
+ *     tags:
+ *       - Subjects
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Éxito
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   subjects:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *       404:
+ *         description: Subject no trobat */
+router.get('/subjects/:id/users', getUsersBySubjectHandler);
 
 export default router;

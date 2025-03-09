@@ -10,11 +10,11 @@ const subjectSchema = new mongoose.Schema({
         type: String,
         required : true
     },
-    alumni: {
+    alumni: [{
         type : Schema.Types.ObjectId,
         ref: 'User',
-        required : true
-    }
+        required: true
+    }]
 });
 
 //definir interfície amb les variables definides, indicant quina estructura ha de seguir l'usuari per crear el json
@@ -24,5 +24,5 @@ export interface ISubject{
     alumni : mongoose.Types.ObjectId[]; 
 }
 
-const Subject = mongoose.model<ISubject>('Subject', subjectSchema);
+const Subject = mongoose.model('Subject', subjectSchema);
 export default Subject;

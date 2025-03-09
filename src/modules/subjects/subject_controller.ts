@@ -1,7 +1,7 @@
 // src/controllers/subject_controller.ts
 
 //funcions que s'executen
-import { saveMethod, createSubject, getAllSubjects, getSubjectById, updateSubject, deleteSubject } from '../subjects/subject_service.js';
+import { saveMethod, createSubject, getAllSubjects, getSubjectById, updateSubject, deleteSubject, getUsersBySubject } from '../subjects/subject_service.js';
 
 import express, { Request, Response } from 'express';
 
@@ -32,7 +32,7 @@ export const getAllSubjectsHandler = async (req: Request, res: Response) => {
 };
 export const getSubjectByIdHandler = async (req: Request, res: Response) => {
     try {
-        const data = await getSubjectById(req.params.id); //tot el que hi ha a la url després de /users/ es guarda a req.params.id
+        const data = await getSubjectById(req.params.id); 
         res.json(data);
     } catch (error: any) {
         res.status(500).json({ message: error.message });
@@ -49,6 +49,14 @@ export const updateSubjectHandler = async (req: Request, res: Response) => {
 export const deleteSubjectHandler = async (req: Request, res: Response) => {
     try {
         const data = await deleteSubject(req.params.id);
+        res.json(data);
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
+    }
+};
+export const getUsersBySubjectHandler = async (req: Request, res: Response) => {
+    try {
+        const data = await getUsersBySubject(req.params.id);
         res.json(data);
     } catch (error: any) {
         res.status(500).json({ message: error.message });

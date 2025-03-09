@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 //definir tipus de variables
 const userSchema = new mongoose.Schema({
@@ -17,7 +17,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required : true
-    }
+    },
+    /*subjects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Subject'
+    }]*/
 });
 
 //definir interfície amb les variables definides, indicant quina estructura ha de seguir l'usuari per crear el json
@@ -26,7 +30,7 @@ export interface IUser{
     age : number;
     email : string;
     password: string;
-
+    //subjects: mongoose.Types.ObjectId[];
 }
 
 const User = mongoose.model('User', userSchema);
